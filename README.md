@@ -44,7 +44,7 @@ The parser extracts:
 ## Local Development
 
 1. Clone the repository and create `.env` from [.env.example](.env.example)
-2. Provide a private resume PDF using `RESUME_BASE64` or by pointing `RESUME_FILE_PATH` to a local private PDF
+2. Provide a private resume PDF using `RESUME_BASE64`, a private Supabase Storage object, or `RESUME_FILE_PATH` to a local private PDF
 3. Create a Supabase project and run [database/schema.sql](database/schema.sql)
 4. Set `APP_ADMIN_TOKEN` in `.env`. This private token is required to send applications and open the dashboard.
 4. Install dependencies:
@@ -115,7 +115,14 @@ If the key is missing or the request fails, the app falls back to a deterministi
    - `GMAIL_SENDER_EMAIL`
 
 The send route will attach the configured resume PDF automatically.
-For deployment, prefer `RESUME_BASE64` so the resume is not committed to Git or exposed under `public/`.
+For deployment, prefer either:
+- `SUPABASE_RESUME_BUCKET` + `SUPABASE_RESUME_PATH` for a private Supabase Storage object
+- or `RESUME_BASE64` if you prefer keeping the PDF entirely in environment variables
+
+The lookup order is:
+1. `RESUME_BASE64`
+2. Supabase Storage via `SUPABASE_RESUME_BUCKET` and `SUPABASE_RESUME_PATH`
+3. local `RESUME_FILE_PATH`
 
 ## Security Notes
 
