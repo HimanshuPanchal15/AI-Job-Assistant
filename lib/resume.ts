@@ -57,7 +57,9 @@ export async function analyzeResumeAgainstJob(jobDescription: string): Promise<R
     [];
 
   if (!resumeText) {
-    suggestedResumeImprovements.unshift("Provide a private resume via RESUME_BASE64 or RESUME_FILE_PATH so the app can attach and analyze it.");
+    suggestedResumeImprovements.unshift(
+      "Provide a private resume via Supabase Storage, RESUME_BASE64, or RESUME_FILE_PATH so the app can attach and analyze it.",
+    );
   }
 
   if (!suggestedResumeImprovements.length) {
@@ -68,7 +70,6 @@ export async function analyzeResumeAgainstJob(jobDescription: string): Promise<R
     match_score: Math.max(0, Math.min(score, 100)),
     key_required_skills: keySkills.slice(0, 8),
     suggested_resume_improvements: suggestedResumeImprovements,
-    resume_excerpt: resumeText ? `${resumeText.slice(0, 400)}${resumeText.length > 400 ? "..." : ""}` : "No resume text extracted yet.",
   };
 }
 

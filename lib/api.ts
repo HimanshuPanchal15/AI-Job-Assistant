@@ -25,9 +25,12 @@ export function generateEmail(prompt: string) {
   });
 }
 
-export function analyzeResume(prompt: string) {
+export function analyzeResume(prompt: string, adminToken: string) {
   return request<ResumeAnalysisResponse>("/api/resume-analysis", {
     method: "POST",
+    headers: {
+      "x-admin-token": adminToken,
+    },
     body: JSON.stringify({ prompt }),
   });
 }

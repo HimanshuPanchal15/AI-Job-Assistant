@@ -42,7 +42,7 @@ export function JobPromptInput() {
       const trimmedToken = adminToken.trim();
       window.localStorage.setItem(ADMIN_TOKEN_STORAGE_KEY, trimmedToken);
 
-      const [draft, analysis] = await Promise.all([generateEmail(prompt), analyzeResume(prompt)]);
+      const [draft, analysis] = await Promise.all([generateEmail(prompt), analyzeResume(prompt, trimmedToken)]);
       const previewState: PreviewState = {
         ...draft,
         rawPrompt: prompt,

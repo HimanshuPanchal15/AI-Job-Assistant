@@ -19,7 +19,6 @@ export type ResumeAnalysisResponse = {
   match_score: number;
   key_required_skills: string[];
   suggested_resume_improvements: string[];
-  resume_excerpt: string;
 };
 
 export type PreviewState = GeneratedEmailResponse & {
