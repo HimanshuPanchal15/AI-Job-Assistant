@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - "codex/**"
+  pull_request:
+
+jobs:
+  web:
+    name: Lint And Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: package.json
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Lint project
+        env:
+          NEXT_PUBLIC_APP_URL: http://localhost:3000
+          HF_API_KEY: ""
+          SUPABASE_URL: https://example.supabase.co
+          SUPABASE_SERVICE_ROLE_KEY: service-role-key
+          GMAIL_CLIENT_ID: client-id
+          GMAIL_CLIENT_SECRET: client-secret
+          GMAIL_REFRESH_TOKEN: refresh-token
+          GMAIL_SENDER_EMAIL: sender@example.com
+          APP_ADMIN_TOKEN: ci-admin-token
+          RESUME_FILE_PATH: public/resume.pdf
+        run: npm run lint
+
+      - name: Build project
+        env:
+          NEXT_PUBLIC_APP_URL: http://localhost:3000
+          HF_API_KEY: ""
+          SUPABASE_URL: https://example.supabase.co
+          SUPABASE_SERVICE_ROLE_KEY: service-role-key
+          GMAIL_CLIENT_ID: client-id
+          GMAIL_CLIENT_SECRET: client-secret
+          GMAIL_REFRESH_TOKEN: refresh-token
+          GMAIL_SENDER_EMAIL: sender@example.com
+          APP_ADMIN_TOKEN: ci-admin-token
+          RESUME_FILE_PATH: public/resume.pdf
+        run: npm run build

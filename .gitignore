@@ -1,0 +1,22 @@
+# Node
+node_modules/
+.next/
+out/
+
+# Environment
+.env
+.env.local
+private/
+public/resume.pdf
+
+# Build artifacts
+*.log
+*.tmp
+dist/
+coverage/
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
